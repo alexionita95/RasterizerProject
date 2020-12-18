@@ -1,6 +1,9 @@
 #include<string>
 #include<iostream>
 #include <math.h>
+#include <time.h>
+#include "Bitmap.h"
+/*
 const float PI = std::atan(1.0) * 4;
 struct Vec3 {
     float x;
@@ -144,11 +147,23 @@ struct Mat3 {
     }
 
 };
-
+*/
 int main()
 {
+    srand(time(NULL));
+    char* fileName = "D:\\test.bmp";
+    Bitmap* bmp = new Bitmap(640, 480);
+    for (int i = 0; i < 480; ++i)
+    {
+        for (int j = 0; j < 640; ++j)
+        {
+            uint8_t r = rand() % 255;
+            uint8_t g= rand() % 255;
+            uint8_t b = rand() % 255;
+            bmp->setPixel(j, i, r, g, b);
+        }
+    }
+    bmp->save(fileName);
 
-    Mat3 m = Mat3::identity();
-    std::cout << m.toString() << std::endl;
     return 0;
 }

@@ -3,60 +3,9 @@
 #include <math.h>
 #include <time.h>
 #include "Bitmap.h"
+#include "Renderer.h"
 /*
 const float PI = std::atan(1.0) * 4;
-struct Vec3 {
-    float x;
-    float y;
-    float z;
-    Vec3() :x(0), y(0), z(0) {}
-    Vec3(float x_, float y_, float z_) :x(x_), y(y_), z(z_) {}
-    Vec3 operator +(const Vec3& other)
-    {
-        return Vec3(x + other.x, y + other.y, z + other.z);
-    }
-    Vec3 operator -(const Vec3& other)
-    {
-        return Vec3(x - other.x, y - other.y, z - other.z);
-    }
-    Vec3 operator *(const Vec3& other)
-    {
-        return Vec3(y*other.z - z * other.y, z*other.x - x * other.z, x*other.y - y * other.x);
-    }
-
-    void rotateXY(float degrees)
-    {
-        Mat3 rotation = Mat3::XYRotation(degrees);
-        *this = rotation.multiply(*this);
-    }
-    void rotateXZ(float degrees)
-    {
-        Mat3 rotation = Mat3::XZRotation(degrees);
-        *this = rotation.multiply(*this);
-    }
-    void rotateYZ(float degrees)
-    {
-        Mat3 rotation = Mat3::YZRotation(degrees);
-        *this = rotation.multiply(*this);
-    }
-    void scale(const Vec3& scale)
-    {
-        Mat3 scaleMatrix = Mat3::scale(scale);
-        *this = scaleMatrix.multiply(*this);
-    }
-    void translate(const Vec3& value)
-    {
-        x = value.x;
-        y = value.y;
-        z = value.z;
-    }
-
-    std::string toString()
-    {
-        return "(" + std::to_string(x) + "," + std::to_string(y) + "," + std::to_string(z) + ")";
-    }
-};
-
 struct Mat3 {
     static const int size = 3;
     float arr[size][size];
@@ -152,15 +101,16 @@ int main()
 {
     srand(time(NULL));
     char* fileName = "D:\\test.bmp";
-    Bitmap* bmp = new Bitmap(640, 480);
-    for (int i = 0; i < 480; ++i)
+    int screenWidth = 640;
+    int screenHeight = 480;
+    Renderer* renderer = new Renderer(screenWidth, screenHeight);
+    renderer->line(Vec2i(10, 10), Vec2i(100, 70), Color(255, 0, 0));
+    Bitmap* bmp = new Bitmap(screenWidth,screenHeight);
+    for (int i = 0; i < screenHeight; ++i)
     {
-        for (int j = 0; j < 640; ++j)
+        for (int j = 0; j < screenWidth; ++j)
         {
-            uint8_t r = rand() % 255;
-            uint8_t g= rand() % 255;
-            uint8_t b = rand() % 255;
-            bmp->setPixel(j, i, r, g, b);
+            bmp->setPixel(j, i, 255, 0, 0);
         }
     }
     bmp->save(fileName);

@@ -12,6 +12,8 @@ Bitmap::Bitmap(uint32_t width_, uint32_t height_)
 }
 
 Bitmap::Bitmap(uint32_t width_, uint32_t height_, uint8_t * buffer_)
+    :width{ width_ }
+    , height{ height_ }
 {
     init();
     memcpy(buffer, buffer_, bufferSize);
@@ -52,9 +54,9 @@ void Bitmap::setPixel(const uint32_t & x, const uint32_t & y, const BitmapColor 
         return;
        
     }
-    buffer[widthInBytes*y + x*3] = color.r;
+    buffer[widthInBytes*y + x*3] = color.b;
     buffer[widthInBytes*y + x*3 + 1] = color.g;
-    buffer[widthInBytes*y + x*3 + 2] = color.b;
+    buffer[widthInBytes*y + x*3 + 2] = color.r;
 }
 
 void Bitmap::setPixel(const uint32_t & x, const uint32_t & y, uint8_t r, uint8_t g, uint8_t b)
@@ -81,7 +83,7 @@ void Bitmap::init()
 {
     bufferSize = width * height * BYTES_PER_PIXEL;
     buffer = new uint8_t[bufferSize];
-    memset(buffer, 255, bufferSize);
+    memset(buffer, 0, bufferSize);
     widthInBytes = width * BYTES_PER_PIXEL;
     paddingSize = (4 - (widthInBytes) % 4) % 4;
     createFileHeader();

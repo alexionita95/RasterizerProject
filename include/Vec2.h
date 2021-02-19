@@ -4,23 +4,16 @@ template <typename T>
 struct Vec2 {
     T x;
     T y;
-    Vec2() :x(0), y(0), z(0) {}
+    Vec2() :x(0), y(0) {}
     Vec2(T x_, T y_) :x{ x_ }, y{ y_ } {}
-    Vec2<T> operator +(const Vec2<T>& other)
-    {
-        return Vec2<T>(x + other.x, y + other.y);
-    }
-    Vec2<T> operator -(const Vec2<T>& other)
-    {
-        return Vec2<T>(x - other.x, y - other.y, z - other.z);
-    }
-
     void translate(const Vec2<T>& value)
     {
         x = value.x;
         y = value.y;
     }
-
+    inline Vec2<T> operator +(const Vec2<T> &V) const { return Vec2<T>(x + V.x, y + V.y); }
+    inline Vec2<T> operator -(const Vec2<T> &V) const { return Vec2<T>(x - V.x, y - V.y); }
+    inline Vec2<T> operator *(float f)          const { return Vec2<T>(x*f, y*f); }
     std::string toString()
     {
         return "(" + std::to_string(x) + "," + std::to_string(y) + ")";

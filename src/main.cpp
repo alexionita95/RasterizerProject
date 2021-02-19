@@ -101,18 +101,14 @@ int main()
 {
     srand(time(NULL));
     char* fileName = "D:\\test.bmp";
-    int screenWidth = 640;
-    int screenHeight = 480;
+    int screenWidth = 800;
+    int screenHeight = 800;
     Renderer* renderer = new Renderer(screenWidth, screenHeight);
-    renderer->line(Vec2i(10, 10), Vec2i(100, 70), Color(255, 0, 0));
-    Bitmap* bmp = new Bitmap(screenWidth,screenHeight);
-    for (int i = 0; i < screenHeight; ++i)
-    {
-        for (int j = 0; j < screenWidth; ++j)
-        {
-            bmp->setPixel(j, i, 255, 0, 0);
-        }
-    }
+    Model* model = new Model("D:\\model.obj");
+    renderer->renderModel(model);
+    //renderer->triangle(Vec2i(10, 10), Vec2i(100, 70), Vec2i(150, 40), Color(255, 0, 0));
+    //renderer->line(Vec2i(10, 10), Vec2i(100, 70), Color(255, 0, 0));
+    Bitmap* bmp = new Bitmap(screenWidth,screenHeight,renderer->getBuffer());
     bmp->save(fileName);
 
     return 0;
